@@ -1,0 +1,132 @@
+{% extends 'home.html' %}
+
+{% block updatePredmeti %}
+<style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      overflow-x: hidden;
+    }
+  
+    a {
+      color: #f2f2f2;
+      text-decoration: none;
+      padding: 20px;
+    }
+  
+    a:hover {
+      background-color: #f2f2f2;
+      color: #3c71c0;
+      border-radius: 40%;
+    }
+  
+    header {
+      background-color: #3c71c0;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      font-size: 20px;
+    }
+  
+    nav {
+      margin-top: 20px;
+    }
+  
+    main {
+      margin-left: 60px;
+      flex-grow: 1;
+      padding: 20px;
+    }
+  
+    h1 {
+      margin-left: 60px;
+    }
+  
+    table {
+      margin-left: 60px;
+      border-collapse: collapse;
+      width: 80%;
+      margin-top: 20px;
+    }
+  
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+    }
+  
+    button {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      margin-top: 20px;
+    }
+  </style>
+  <header>
+      <a href="{% url 'izbornik_admin' %}">Home</a>
+      <a href="{% url 'predmeti_lista' %}">Subjects</a>
+      <a href="{% url 'studenti_lista' %}">Students</a>
+      <a href="{% url 'profesori_lista' %}">Professors</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </header>
+
+    <h1>Update Subject Data for {{ subject.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label for="new_name">Name:</label></td>
+                <td><input type="text" name="new_name" value="{{ subject.name }}"></td>
+            </tr>
+            <tr>
+                <td><label for="new_kod">Code:</label></td>
+                <td><input type="text" name="new_kod" value="{{ subject.kod }}"></td>
+            </tr>
+            <tr>
+                <td><label for="new_program">Program:</label></td>
+                <td><input type="text" name="new_program" value="{{ subject.program }}"></td>
+            </tr>
+            <tr>
+                <td><label for="new_ects">ECTS:</label></td>
+                <td><input type="number" name="new_ects" value="{{ subject.ects }}"></td>
+            </tr>
+            <tr>
+                <td><label for="new_sem_red">Semester - Regular:</label></td>
+                <td><input type="number" name="new_sem_red" value="{{ subject.sem_red }}"></td>
+            </tr>
+            <tr>
+                <td><label for="new_sem_izv">Semester - Irregular:</label></td>
+                <td><input type="number" name="new_sem_izv" value="{{ subject.sem_izv }}"></td>
+            </tr>
+            <tr>
+              <td><label for="new_izborni">Elective:</label></td>
+              <td>
+                  <select name="new_izborni">
+                      <option value="1" {% if subject.izborni == '1' %}selected{% endif %}>No</option>
+                      <option value="2" {% if subject.izborni == '2' %}selected{% endif %}>Yes</option>
+                  </select>
+              </td>
+            </tr>
+            <tr>
+                <td><label for="new_nositelj">Professor:</label></td>
+                <td>
+                    <select name="new_nositelj">
+                        {% for professor in professors %}
+                            <option value="{{ professor.username }}" {% if professor.username == subject.nositelj.username %}selected{% endif %}>
+                                {{ professor.first_name }} {{ professor.last_name }}
+                            </option>
+                        {% endfor %}                
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br>
+    <button type="submit">Update</button>
+</form>
+{% endblock %}

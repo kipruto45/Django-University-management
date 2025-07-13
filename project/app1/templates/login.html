@@ -1,0 +1,44 @@
+{% extends 'home.html' %}
+
+{% block login %}
+{% load static %}
+<style>
+  body {
+    background-image: url("{% static 'book.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  a, h2 {
+    color: #3c71c0;
+    text-decoration: none;
+  }
+
+  .centered-div {
+    text-align: center;
+  }
+</style>
+
+<div class="centered-div">
+  <h2>Login</h2>
+  <form method="post">
+      {{ form }}
+      {% csrf_token %}
+      <input type="submit" value="Login">
+  </form>
+
+  <p>Don't have an account? <a href="{% url 'register' %}">Register Now</a></p>
+</div>
+{% endblock %}

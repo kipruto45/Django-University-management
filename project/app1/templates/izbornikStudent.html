@@ -1,0 +1,165 @@
+{% extends 'home.html' %}
+
+{% block izbornikStudent %}
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  a:hover {
+    background-color: #f2f2f2;
+    color: #3c71c0;
+    border-radius: 40%;
+  }
+
+  header {
+    background-color: #3c71c0;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
+
+  h3 {
+    margin-left: 60px;
+    color: #3c71c0;
+  }
+
+  h1, h4 {
+    margin-left: 60px;
+  }
+
+  table {
+    margin-left: 60px;
+    border-collapse: collapse;
+    width: 80%;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+
+<header>
+  <nav>
+    <a href="{% url 'izbornik_student' %}">Home</a>
+    <a href="{% url 'filter_subjects' %}">Filter</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </nav>
+</header>
+
+<h1>Enrollment List</h1>
+
+{% for semester, subjects in semesters.items %}
+  {% if subjects.enrolled_subjects or subjects.unenrolled_subjects %}
+    <h3>Semester {{ semester }}</h3>
+    {% if subjects.enrolled_subjects %}
+      <h4>Enrolled Subjects</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Subject Name</th>
+            <th>Subject Code</th>
+            <th>Program</th>
+            <th>ECTS</th>
+            <th>Elective</th>
+            <th>Professor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for subject in subjects.enrolled_subjects %}
+            <tr>
+              <td>{{ subject.name }}</td>
+              <td>{{ subject.kod }}</td>
+              <td>{{ subject.program }}</td>
+              <td>{{ subject.ects }}</td>
+              <td>
+                {% if subject.izborni == '2' %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>           
+              <td>{{ subject.nositelj.first_name }} {{ subject.nositelj.last_name }}</td>
+              <td>
+                {% if subject.enrollment_status == 'Položen' %}
+                Passed
+              {% elif subject.enrollment_status == 'Izgubljen potpis' %}
+                Lost signature
+              {% else %}
+                <form action="{% url 'unenroll_subject' subject.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit">Unenroll</button>
+                </form>
+              {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+    {% endif %}
+    {% if subjects.unenrolled_subjects %}
+      <h4>Unenrolled Subjects</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Subject Name</th>
+            <th>Subject Code</th>
+            <th>Program</th>
+            <th>ECTS</th>
+            <th>Elective</th>
+            <th>Professor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for subject in subjects.unenrolled_subjects %}
+            <tr>
+              <td>{{ subject.name }}</td>
+              <td>{{ subject.kod }}</td>
+              <td>{{ subject.program }}</td>
+              <td>{{ subject.ects }}</td>
+              <td>
+                {% if subject.izborni == '2' %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>    
+              <td>{{ subject.nositelj.first_name }} {{ subject.nositelj.last_name }}</td>
+              <td>
+                <form action="{% url 'enroll_subject' subject.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit">Enroll</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br><br><br><br><br>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% endblock %}

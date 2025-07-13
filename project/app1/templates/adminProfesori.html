@@ -1,0 +1,106 @@
+{% extends 'home.html' %}
+
+{% block adminProfesori %}
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #3c71c0;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  a:hover {
+    background-color: #f2f2f2;
+    color: #333;
+    border-radius: 40%;
+  }
+
+  header {
+    background-color: #3c71c0;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  header a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  header a:hover {
+    background-color: #f2f2f2;
+    color: #3c71c0;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
+
+  h1, a {
+    margin-left: 60px;
+  }
+
+  main {
+    margin-left: 60px;
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  table {
+    margin-left: 60px;
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+
+<header>
+  <a href="{% url 'izbornik_admin' %}">Home</a>
+  <a href="{% url 'predmeti_lista' %}">Subjects</a>
+  <a href="{% url 'studenti_lista' %}">Students</a>
+  <a href="{% url 'profesori_lista' %}">Professors</a>
+  <a href="{% url 'logout' %}">Logout</a>
+</header>
+
+<h1>Professor Administration</h1>
+<a href="{% url 'add_professor' %}">Add New Professor</a><br><br>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th></th>
+  </tr>
+  {% for professor in professors %}
+    <tr>
+      <td>{{ professor.first_name }}</td>
+      <td>{{ professor.last_name }}</td>
+      <td>{{ professor.username }}</td>
+      <td>{{ professor.email }}</td>
+      <td>
+        <a href="{% url 'professor_update' professor.id %}">Update</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

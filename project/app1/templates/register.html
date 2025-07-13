@@ -1,0 +1,72 @@
+{% extends 'home.html' %}
+
+{% block register %}
+{% load static %}
+<style>
+  body {
+    background-image: url("{% static 'book.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h2 {
+    color: #3c71c0;
+    text-decoration: none;
+  }
+
+  form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  a {
+    color: #3c71c0;
+    text-decoration: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  .centered-div {
+    text-align: center;
+  }
+</style>
+
+<div class="centered-div">
+  <h2>Registration form</h2>
+  <form method="post">
+      <table>
+          {% for field in form %}
+          <tr>
+              <td>{{ field.label_tag }}</td>
+              <td>{{ field }}</td>
+          </tr>
+          {% endfor %}
+      </table><br>
+      {% csrf_token %}
+      <input type="submit" value="Register">
+  </form>
+
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}

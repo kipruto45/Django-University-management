@@ -1,0 +1,118 @@
+{% extends 'home.html' %}
+
+{% block izbornikAdmin %}
+{% load static %}
+<style>
+  body {
+    background-image: url("{% static 'home.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #3c71c0;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  a:hover {
+    background-color: #f2f2f2;
+    color: #333;
+    border-radius: 40%;
+  }
+
+  header {
+    background-color: #3c71c0;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  header a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  header a:hover {
+    background-color: #f2f2f2;
+    color: #3c71c0;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
+
+  h3 {
+    margin-left: 260px;
+  }
+
+  main {
+    margin-left: 60px;
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  table {
+    margin-left: 290px;
+    border-collapse: collapse;
+    width: 50%;
+    margin-top: 20px;
+    font-size: 20px;
+  }
+
+  table tr:nth-child(even){background-color: #f2f2f2;}
+
+  table tr:hover {background-color: #ddd;}
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+<header>
+  <a href="{% url 'izbornik_admin' %}">Home</a>
+  <a href="{% url 'predmeti_lista' %}">Subjects</a>
+  <a href="{% url 'studenti_lista' %}">Students</a>
+  <a href="{% url 'profesori_lista' %}">Professors</a>
+  <a href="{% url 'logout' %}">Logout</a>
+</header>
+
+<main>
+  <h3>Logged in as: {{ request.user.first_name }} {{ request.user.last_name }}</h3>
+
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>Username:</td>
+      <td>{{ request.user.username }}</td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td>{{ request.user.email }}</td>
+    </tr>
+    <tr>
+      <td>First login:</td>
+      <td>{{ request.user.date_joined }}</td>
+    </tr>
+    <tr>
+      <td>Last login:</td>
+      <td>{{ request.user.last_login }}</td>
+    </tr>
+  </table>
+</main>
+{% endblock %}

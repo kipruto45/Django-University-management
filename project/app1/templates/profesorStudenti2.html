@@ -1,0 +1,92 @@
+{% extends 'home.html' %}
+
+{% block profesorStudenti2 %}
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #3c71c0;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  a:hover {
+    background-color: #f2f2f2;
+    color: #3c71c0;
+    border-radius: 40%;
+  }
+
+  header {
+    background-color: #3c71c0;
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  header a {
+    color: #f2f2f2;
+    padding: 20px;
+  }
+
+  h2 {
+    margin-left: 60px;
+    color: #3c71c0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 60px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+
+<header>
+  <a href="{% url 'izbornik_profesor' %}">Home</a>
+  <a href="{% url 'predmeti' %}">Subjects</a>
+  <a href="{% url 'logout' %}">Logout</a>
+</header>
+
+  <h2>Students enrolled in subject {{ subject.name }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+        <tr>
+          <td>{{ student.korisnik.first_name }}</td>
+          <td>{{ student.korisnik.last_name }}</td>
+          <td>{{ student.korisnik.email }}</td>
+          <td>
+            {% if student.status.status == 'Prijavljen' %}
+              Enrolled
+            {% else %}
+              {{ student.status.status }}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

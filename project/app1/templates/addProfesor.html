@@ -1,0 +1,107 @@
+{% extends 'home.html' %}
+
+{% block addProfesor %}
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 20px;
+  }
+
+  a:hover {
+    background-color: #f2f2f2;
+    color: #3c71c0;
+    border-radius: 40%;
+  }
+
+  header {
+    background-color: #3c71c0;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
+
+  main {
+    margin-left: 60px;
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  h1 {
+    margin-left: 60px;
+  }
+
+  table {
+    margin-left: 60px;
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 20px;
+  }
+</style>
+<header>
+    <a href="{% url 'izbornik_admin' %}">Home</a>
+    <a href="{% url 'predmeti_lista' %}">Subjects</a>
+    <a href="{% url 'studenti_lista' %}">Students</a>
+    <a href="{% url 'profesori_lista' %}">Professors</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </header>
+
+<h1>Add New Professor</h1>
+<form method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><label for="new_first_name">Name:</label></td>
+            <td><input type="text" name="new_first_name" placeholder="John"></td>
+        </tr>
+        <tr>
+            <td><label for="new_last_name">Surname:</label></td>
+            <td><input type="text" name="new_last_name" placeholder="Doe"></td>
+        </tr>
+        <tr>
+            <td><label for="new_username">Username:</label></td>
+            <td><input type="text" name="new_username" placeholder="jdoe"></td>
+        </tr>
+        <tr>
+            <td><label for="new_email">Email:</label></td>
+            <td><input type="email" name="new_email" placeholder="jdoe@oss.unist.hr"></td>
+        </tr>
+        <tr>
+          <td><label for="new_password">Password:</label></td>
+          <td><input type="password" name="new_password" placeholder="Enter Password"></td>
+        </tr>
+    </table>
+    <br>
+    <button type="submit">Add</button>
+</form>
+{% endblock %}

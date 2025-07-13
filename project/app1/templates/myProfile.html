@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+
+{% block myProfile %}
+    {% if request.user.role.role == 'Student' %}
+        {% redirect 'izbornik_student' %}
+    {% elif request.user.role.role == 'Admin' %}
+        {% redirect 'izbornik_admin' %}
+    {% elif request.user.role.role == 'Profesor' %}
+        {% redirect 'izbornik_profesor' %}
+    {% else %}
+        {% redirect 'error' %}
+    {% endif %}
+    {% csrf_token %} 
+{% endblock %}

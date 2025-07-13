@@ -1,0 +1,108 @@
+{% extends 'home.html' %}
+
+{% block studentFilterPredmeta %}
+<style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: #3c71c0;
+      text-decoration: none;
+      padding: 20px;
+    }
+
+    a:hover {
+      background-color: #f2f2f2;
+      color: #3c71c0;
+      border-radius: 40%;
+    }
+
+    header {
+      background-color: #3c71c0;
+      padding: 30px;
+      text-align: center;
+      width: 100%;
+      font-size: 20px;
+    }
+
+    header a {
+      color: #f2f2f2;
+      padding: 20px;
+    }
+
+    form {
+      margin-left: 60px;
+    }
+
+    h1 {
+      margin-left: 60px;
+      color: #3c71c0;
+    }
+
+    h2 {
+      margin-left: 60px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin-left: 60px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+</style>
+
+<header>
+  <a href="{% url 'izbornik_student' %}">Home</a>
+  <a href="{% url 'filter_subjects' %}">Filter</a>
+  <a href="{% url 'logout' %}">Logout</a>
+</header>
+
+<h1>Subject Filtering</h1>
+
+<form action="{% url 'filter_subjects' %}" method="GET">
+  <label for="points">Subjects with more ECTS points than:</label>
+  <input type="number" name="points" id="points" min="1">
+
+  <label for="semester">Subjects held in semester:</label>
+  <input type="number" name="semester" id="semester" min="1">
+
+  <button type="submit">Filter</button>
+</form>
+
+{% if filter_subjects %}
+  <h2>Filtered Subjects:</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Subject Name</th>
+        <th>ECTS</th>
+        <th>Semester - Regular</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for subject in filter_subjects %}
+        <tr>
+          <td>{{ subject.name }}</td>
+          <td>{{ subject.ects }}</td>
+          <td>{{ subject.sem_red }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No results for the specified criteria.</p>
+{% endif %}
+{% endblock %}

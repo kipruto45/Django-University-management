@@ -1,0 +1,13 @@
+[
+{"model":"app1.uloge","id":1,"fields":{"role" : "Admin"}},
+{"model":"app1.uloge","id":2,"fields":{"role" : "Profesor"}},
+{"model":"app1.uloge","id":3,"fields":{"role" : "Student"}},
+
+{"model":"app1.statusstudenta","id":1,"fields":{"status" : "None"}},
+{"model":"app1.statusstudenta","id":2,"fields":{"status" : "Izvanredni student"}},
+{"model":"app1.statusstudenta","id":3,"fields":{"status" : "Redovni student"}},
+
+{"model":"app1.status","id":1,"fields":{"status" : "Prijavljen"}},
+{"model":"app1.status","id":2,"fields":{"status" : "Položen"}},
+{"model":"app1.status","id":3,"fields":{"status" : "Izgubljen potpis"}}
+]
