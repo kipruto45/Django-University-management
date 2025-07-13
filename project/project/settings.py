@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-$t=7cze9e6joj=^sm4#8g3e@h%6svutt*3nj!#+w!_!rseup$b
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'django-university-management.onrender.com'
+    'django-university-management1.onrender.com',
+    '.onrender.com'  # Allows all Render subdomains
 ]
 
 
